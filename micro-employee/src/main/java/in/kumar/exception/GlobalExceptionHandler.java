@@ -49,4 +49,11 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse<Map<Objects, Objects>>> handleResourceNotFoundException(ResourceNotFoundException exception){
+        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", exception.getMessage(), Collections.EMPTY_MAP);
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 }
