@@ -12,7 +12,7 @@ public interface EmployeeService {
 
     ApiResponse<Employee> saveEmployee(EmployeeDto employeeDto);
 
-    ApiResponse<List<Entity>> getAllEmployees();
+    ApiResponse<List<Employee>> getAllEmployees();
 
     ApiResponse<Employee> getSingleEmployee(String id);
 

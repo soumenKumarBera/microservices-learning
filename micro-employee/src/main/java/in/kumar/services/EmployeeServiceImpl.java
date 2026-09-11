@@ -2,6 +2,7 @@ package in.kumar.services;
 
 import in.kumar.dto.EmployeeDto;
 import in.kumar.entities.Employee;
+import in.kumar.exception.ResourceNotFoundException;
 import in.kumar.payload.ApiResponse;
 import in.kumar.repositories.EmployeeRepo;
 import org.modelmapper.ModelMapper;
@@ -37,12 +38,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ApiResponse<List<Entity>> getAllEmployees() {
-        return null;
+    public ApiResponse<List<Employee>> getAllEmployees() {
+
+        List<Employee> allEmployee = employeeRepo.findAll();
+
+        if (allEmployee.isEmpty()){
+            return new ApiResponse<>("SUCCESS", "EMPLOYEE DATA NOT FOUND",allEmployee);
+        }
+
+        return new ApiResponse<>("SUCCESS", "EMPLOYEE DATA FOUND",allEmployee);
     }
 
     @Override
     public ApiResponse<Employee> getSingleEmployee(String id) {
-        return null;
+
+      Employee singleEmployee = employeeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("EMPLOYEE NOT FOUND WITH ID: " +id ));
+
+
+        return new ApiResponse<>("SUCCESS", "SINGLE EMPLOYEE DATA FOUND", singleEmployee );
     }
 }
