@@ -21,7 +21,7 @@ public class Account {
     @Column(unique = true, length = 16)
     private String accNo;
 
-    @Column(length = 16)
+    @Column(length = 30)
     private String bankName;
 
     @Column(length = 300)
