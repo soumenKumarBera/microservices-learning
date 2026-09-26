@@ -2,6 +2,7 @@ package in.kumar.services;
 
 import in.kumar.dto.AccountDto;
 import in.kumar.entities.Account;
+import in.kumar.exception.DuplicateResourceNotFoundException;
 import in.kumar.exception.ResourceNotFoundException;
 import in.kumar.payload.ApiResponse;
 import in.kumar.repository.AccountRepo;
@@ -26,6 +27,12 @@ public class AccountServicesImp implements AccountServices{
 
     @Override
     public ApiResponse<Account> saveAccount(AccountDto accountDto) {
+
+        // CHECK  THIS ACCOUNT  ARE DUPLICATE
+        if(accountRepo.findByAccNo(accountDto.getAccNo()).isPresent()){
+
+            throw  new DuplicateResourceNotFoundException("DUPLICATE RESOURCE FOUND EXCEPTION...");
+        }
 
         Account account =  modelMapper.map(accountDto, Account.class); // this work one object to convert another object
 
