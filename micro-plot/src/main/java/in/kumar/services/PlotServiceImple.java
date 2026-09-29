@@ -1,6 +1,7 @@
 package in.kumar.services;
 
 import in.kumar.PlotDto.PlotDto;
+import in.kumar.client.EmployeeClient;
 import in.kumar.entities.Plot;
 import in.kumar.exception.ResourceNotFoundException;
 import in.kumar.payload.ApiResponse;
@@ -21,8 +22,14 @@ public class PlotServiceImple implements PlotService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private EmployeeClient employeeClient;
+
     @Override
     public ApiResponse<Plot> savePlot(PlotDto plotDto) {
+
+        //Check employId to employee services
+        employeeClient.getSingleEmployee(plotDto.getEmployeeId());
 
         Plot plot = modelMapper.map(plotDto, Plot.class);
         plot.setId(UUID.randomUUID().toString());

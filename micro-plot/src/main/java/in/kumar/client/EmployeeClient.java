@@ -1,6 +1,5 @@
-package in.kumar.clicent;
+package in.kumar.client;
 
-import in.kumar.entities.Account;
 import in.kumar.external.EmployResponse;
 import in.kumar.payload.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,8 +15,5 @@ public interface EmployeeClient {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<EmployResponse>> getSingleEmployee(@PathVariable String id);
-
-
-
 
 }
