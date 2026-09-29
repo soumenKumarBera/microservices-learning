@@ -4,13 +4,21 @@ import in.kumar.dto.AccountDto;
 import in.kumar.entities.Account;
 import in.kumar.exception.DuplicateResourceNotFoundException;
 import in.kumar.exception.ResourceNotFoundException;
+import in.kumar.external.EmployResponse;
 import in.kumar.payload.ApiResponse;
 import in.kumar.repository.AccountRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +33,11 @@ public class AccountServicesImp implements AccountServices{
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private RestTemplate restTemplate; // connect to  one application to one application
+
+
+
     @Override
     public ApiResponse<Account> saveAccount(AccountDto accountDto) {
 
@@ -33,6 +46,34 @@ public class AccountServicesImp implements AccountServices{
 
             throw  new DuplicateResourceNotFoundException("DUPLICATE RESOURCE FOUND EXCEPTION...");
         }
+
+        //stop default RestTemplate exception handling behaviour
+
+        restTemplate.setErrorHandler(new DefaultResponseErrorHandler(){
+
+            @Override
+            public boolean hasError(ClientHttpResponse response) throws IOException {
+                return false;
+            }
+        });
+
+
+        // account to employ application connect
+        ResponseEntity<ApiResponse<EmployResponse>> response = restTemplate.exchange(
+                   "http://localhost:8081/api/employees/" + accountDto.getEmployeeId(),
+                   HttpMethod.GET,
+                   null,
+                   new ParameterizedTypeReference<ApiResponse<EmployResponse>>() {
+                   }
+           );
+
+
+        ApiResponse<EmployResponse> employResponse = response.getBody();
+
+        if(employResponse == null || !"SUCCESS".equalsIgnoreCase(employResponse.getStatus()) || employResponse.getData() == null){
+            throw  new ResourceNotFoundException("Employ not found with id: "+ accountDto.getEmployeeId());
+        }
+
 
         Account account =  modelMapper.map(accountDto, Account.class); // this work one object to convert another object
 
