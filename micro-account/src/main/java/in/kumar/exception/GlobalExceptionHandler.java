@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Map<Objects, Objects>>> handleGenericException(Exception exception){
-        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", "SOMETHING WRONG", Collections.EMPTY_MAP);
+        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", exception.getMessage(), Collections.EMPTY_MAP);
 
         return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 
