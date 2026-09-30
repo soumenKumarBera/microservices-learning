@@ -1,5 +1,6 @@
 package in.kumar.exception;
 
+import feign.FeignException;
 import in.kumar.payload.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,4 +64,30 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ApiResponse<Map<Objects, Objects>>> handleFeignException(FeignException exception){
+
+        String url =  exception.request().url(); //get request url
+
+        String employeeId = url.substring(url.lastIndexOf("/") + 1);
+
+        HttpStatus httpStatus = HttpStatus.resolve(exception.status());
+
+
+        String message;
+        if(httpStatus == null ){
+            message = "Error while communicating with Employee";
+
+        }else {
+            message = "Employee not fond Id: " + employeeId;
+
+        }
+
+
+
+        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", message, Collections.EMPTY_MAP);
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 }
