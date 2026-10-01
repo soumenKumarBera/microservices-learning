@@ -64,30 +64,41 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(FeignException.class)
-    public ResponseEntity<ApiResponse<Map<Objects, Objects>>> handleFeignException(FeignException exception){
+//    @ExceptionHandler(FeignException.class)
+//    public ResponseEntity<ApiResponse<Map<Objects, Objects>>> handleFeignException(FeignException exception){
+//
+//        String url =  exception.request().url(); //get request url
+//
+//        String employeeId = url.substring(url.lastIndexOf("/") + 1);
+//
+//        HttpStatus httpStatus = HttpStatus.resolve(exception.status());
+//
+//
+//        String message;
+//        if(httpStatus == null ){
+//            message = "Error while communicating with Employee";
+//
+//        }else {
+//            message = "Employee not fond Id: " + employeeId;
+//
+//        }
+//
+//
+//
+//        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", message, Collections.EMPTY_MAP);
+//
+//        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//    }
 
-        String url =  exception.request().url(); //get request url
+    @ExceptionHandler(EmployeeServiceException.class)
+    public ResponseEntity<ApiResponse<Map<Object, Object>>> handelServiceException(EmployeeServiceException exception){
 
-        String employeeId = url.substring(url.lastIndexOf("/") + 1);
+        ApiResponse<Map<Object, Object>> apiResponse = new ApiResponse<>("ERROR", exception.getMessage(),Collections.EMPTY_MAP);
 
-        HttpStatus httpStatus = HttpStatus.resolve(exception.status());
+        return new ResponseEntity<>(apiResponse, exception.getHttpStatus());
 
-
-        String message;
-        if(httpStatus == null ){
-            message = "Error while communicating with Employee";
-
-        }else {
-            message = "Employee not fond Id: " + employeeId;
-
-        }
-
-
-
-        ApiResponse<Map<Objects, Objects>> apiResponse = new ApiResponse<>("ERROR", message, Collections.EMPTY_MAP);
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
+
 }

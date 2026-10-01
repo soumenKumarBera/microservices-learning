@@ -1,9 +1,11 @@
 package in.kumar.services;
 
+import feign.FeignException;
 import in.kumar.clicent.EmployeeClient;
 import in.kumar.dto.AccountDto;
 import in.kumar.entities.Account;
 import in.kumar.exception.DuplicateResourceNotFoundException;
+import in.kumar.exception.EmployeeServiceException;
 import in.kumar.exception.ResourceNotFoundException;
 import in.kumar.external.EmployResponse;
 import in.kumar.payload.ApiResponse;
@@ -12,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
@@ -78,7 +81,28 @@ public class AccountServicesImp implements AccountServices{
 
         //check if employee id is present or not
 
-        employeeClient.getSingleEmployee(accountDto.getEmployeeId());
+        try{
+            employeeClient.getSingleEmployee(accountDto.getEmployeeId());
+        }catch (FeignException e){
+
+          HttpStatus  httpStatus = HttpStatus.resolve(e.status());
+
+            System.out.println(httpStatus);
+
+
+            System.out.println(httpStatus);
+          String message;
+          if(httpStatus == null){
+
+              message = "Error while communicating with Employee";
+              httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
+             }else {
+              message = "Employee not fond Id: " + accountDto.getEmployeeId();
+            }
+          throw new EmployeeServiceException(message,httpStatus,e);
+        }
+
 
 
         Account account =  modelMapper.map(accountDto, Account.class); // this work one object to convert another object
