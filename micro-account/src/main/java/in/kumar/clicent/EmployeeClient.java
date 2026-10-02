@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 //        name = "micro-employee",
 //        url = "http://localhost:8081/api/employees"
 //)
-@FeignClient("MICRO-ACCOUNT")
+@FeignClient("MICRO-EMPLOYEE")
 public interface EmployeeClient {
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/employees/{id}")
     public ResponseEntity<ApiResponse<EmployResponse>> getSingleEmployee(@PathVariable String id);
 
 
