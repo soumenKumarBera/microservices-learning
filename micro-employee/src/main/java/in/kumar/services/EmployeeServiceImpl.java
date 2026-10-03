@@ -1,6 +1,7 @@
 package in.kumar.services;
 
 import in.kumar.dto.EmployeeDto;
+import in.kumar.dto.hybrid.EmployeeFullDto;
 import in.kumar.entities.Employee;
 import in.kumar.exception.ResourceNotFoundException;
 import in.kumar.payload.ApiResponse;
@@ -57,5 +58,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
         return new ApiResponse<>("SUCCESS", "SINGLE EMPLOYEE DATA FOUND", singleEmployee );
+    }
+
+    @Override
+    public ApiResponse<Employee> getFullEmployee(EmployeeFullDto employeeFullDto) {
+
+        //employ-->Save
+
+
+        //accopunt-->save
+
+        //plot-->save
+
+
+
+        return null;
     }
 }

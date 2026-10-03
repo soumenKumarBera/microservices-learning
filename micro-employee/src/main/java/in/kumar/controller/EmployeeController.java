@@ -1,6 +1,7 @@
 package in.kumar.controller;
 
 import in.kumar.dto.EmployeeDto;
+import in.kumar.dto.hybrid.EmployeeFullDto;
 import in.kumar.entities.Employee;
 import in.kumar.payload.ApiResponse;
 import in.kumar.services.EmployeeService;
@@ -42,4 +43,17 @@ public class EmployeeController {
         ApiResponse<Employee> singleEmployeeResponse = employeeService.getSingleEmployee(id);
         return ResponseEntity.ok(singleEmployeeResponse);
     }
+
+    //API: employeeFullDate
+
+    @PostMapping("/full")
+    public ResponseEntity<ApiResponse<Employee>> getSingleEmployee(@Valid @RequestBody EmployeeFullDto employeeFullDto){
+        ApiResponse<Employee> singleEmployeeResponse = employeeService.getFullEmployee(employeeFullDto);
+        return new ResponseEntity<>(singleEmployeeResponse, HttpStatus.CREATED);
+    }
+
+
+
+
+
 }

@@ -85,6 +85,12 @@
 		<scope>test</scope>
 	</dependency>
 
+		<!-- openfeign to connect one services to another services  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
 		<!--		eureka-client-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

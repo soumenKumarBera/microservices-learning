@@ -31,11 +31,7 @@
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
 	</properties>
 	<dependencies>
-		<!-- openfeign to connect one services to another services  -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
+
 
 		<!-- Spring Data JPA -->
 		<dependency>
@@ -84,6 +80,7 @@
 			<version>3.2.6</version>
 		</dependency>
 
+
 		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,7 +88,14 @@
 			<scope>test</scope>
 		</dependency>
 
-<!--		eureka-client-->
+		<!-- openfeign to connect one services to another services  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+
+		<!--		eureka-client-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
