@@ -1,9 +1,13 @@
 package in.kumar.services;
 
+import in.kumar.client.AccountClient;
+import in.kumar.client.PlotClient;
 import in.kumar.dto.EmployeeDto;
 import in.kumar.dto.hybrid.EmployeeFullDto;
 import in.kumar.entities.Employee;
 import in.kumar.exception.ResourceNotFoundException;
+import in.kumar.external.AccountDto;
+import in.kumar.external.PlotDto;
 import in.kumar.payload.ApiResponse;
 import in.kumar.repositories.EmployeeRepo;
 import org.modelmapper.ModelMapper;
@@ -24,6 +28,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AccountClient accountClient;
+
+    @Autowired
+    private PlotClient plotClient;
 
     @Override
     public ApiResponse<Employee> saveEmployee(EmployeeDto employeeDto) {
@@ -64,14 +73,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ApiResponse<Employee> getFullEmployee(EmployeeFullDto employeeFullDto) {
 
         //employ-->Save
+        ApiResponse<Employee> employeeApiResponse =  saveEmployee(employeeFullDto.getEmployeeDto());
+        Employee saveEmploy = employeeApiResponse.getData();
 
 
-        //accopunt-->save
+        //account-->save
+
+        AccountDto accountDto = employeeFullDto.getAccountDto();
+        accountDto.setEmployeeId(employeeApiResponse.getData().getId());
+        accountClient.saveAccount(accountDto);
+
+
 
         //plot-->save
 
+      PlotDto plotDto = employeeFullDto.getPlotDto();
+      plotDto.setEmployeeId(employeeApiResponse.getData().getId());
+        plotClient.savePlot(plotDto);
 
 
-        return null;
+
+
+        return new ApiResponse<>("SUCCESS", "EMPLOYEE FULL DATA SAVED SUCCESSFULLY", saveEmploy);
     }
 }

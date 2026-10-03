@@ -20,7 +20,7 @@ public class AccountMainController {
     private AccountServices accountServices;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Account>> saveEmployee(@Valid @RequestBody AccountDto accountDto){
+    public ResponseEntity<ApiResponse<Account>> saveAccount(@Valid @RequestBody AccountDto accountDto){
         ApiResponse<Account> savedAccountResponse = accountServices.saveAccount(accountDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAccountResponse);
 
