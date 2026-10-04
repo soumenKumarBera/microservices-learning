@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -135,5 +136,14 @@ public class AccountServicesImp implements AccountServices{
 
 
         return new ApiResponse<>("SUCCESS", "SINGLE ACCOUNT DATA FOUND", singleAccount );
+    }
+
+    @Override
+    public ApiResponse<Object> accountDataDeleted(String id) {
+
+        accountRepo.deleteByEmployeeId(id);
+
+
+        return new ApiResponse<>("SUCCESS","ACCOUNT DATA DELETED", Collections.EMPTY_MAP);
     }
 }

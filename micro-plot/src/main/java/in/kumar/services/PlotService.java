@@ -18,5 +18,5 @@ public interface PlotService {
     Map<String , Object> getSingPlot(String id);
 
 
-
+    ApiResponse<Object> plotDataDeleted(String id);
 }

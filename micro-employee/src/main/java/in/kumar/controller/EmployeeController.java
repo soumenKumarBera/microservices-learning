@@ -52,6 +52,15 @@ public class EmployeeController {
         return new ResponseEntity<>(singleEmployeeResponse, HttpStatus.CREATED);
     }
 
+    //API: employeeData delete
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Object>> employDataDeleted(@PathVariable String id){
+        ApiResponse<Object> deleteEmployeeData = employeeService.employDataDeleted(id);
+        return ResponseEntity.ok(deleteEmployeeData);
+    }
+
+
 
 
 

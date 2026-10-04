@@ -40,6 +40,13 @@ public class AccountMainController {
         ApiResponse<Account> singleAccountResponse = accountServices.getSingleAccount(id);
         return ResponseEntity.ok(singleAccountResponse);
     }
+    //API: deleteAccountData
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Object>> accountDataDeleted(@PathVariable String id){
+        ApiResponse<Object> deleteAccountData = accountServices.accountDataDeleted(id);
+        return ResponseEntity.ok(deleteAccountData);
+    }
 
 
 

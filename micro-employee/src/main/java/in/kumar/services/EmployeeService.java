@@ -19,4 +19,6 @@ public interface EmployeeService {
     ApiResponse<Employee> getSingleEmployee(String id);
 
     ApiResponse<Employee> getFullEmployee(@Valid EmployeeFullDto employeeFullDto);
+
+    ApiResponse<Object> employDataDeleted(String id);
 }

@@ -13,9 +13,11 @@ import in.kumar.repositories.EmployeeRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -95,5 +97,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
         return new ApiResponse<>("SUCCESS", "EMPLOYEE FULL DATA SAVED SUCCESSFULLY", saveEmploy);
+    }
+
+    @Override
+    @Transactional
+    public ApiResponse<Object> employDataDeleted(String id) {
+
+        //employ-->call
+        employeeRepo.deleteById(id);
+
+
+        //account-->call through Feign
+
+
+
+        //plot-->call through Feign
+
+         return new ApiResponse<>("SUCCESS","EMPLOYEE DATA DELETED", Collections.EMPTY_MAP);
     }
 }

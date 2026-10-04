@@ -14,4 +14,6 @@ public interface AccountServices {
     ApiResponse<List<Account>> getAllAccount();
 
     ApiResponse<Account> getSingleAccount(String id);
+
+    ApiResponse<Object> accountDataDeleted(String id);
 }

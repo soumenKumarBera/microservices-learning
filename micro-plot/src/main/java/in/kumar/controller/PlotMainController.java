@@ -48,4 +48,12 @@ public ResponseEntity<ApiResponse<List<Plot>>> getAllPlots() {
         Map<String, Object> singlePlotResponse = plotService.getSingPlot(id);
         return ResponseEntity.ok(singlePlotResponse);
     }
+
+    //API: plot Data delete
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Object>> plotDataDeleted(@PathVariable String id){
+        ApiResponse<Object> deletePlotData = plotService.plotDataDeleted(id);
+        return ResponseEntity.ok(deletePlotData);
+    }
 }

@@ -71,4 +71,12 @@ public class PlotServiceImple implements PlotService {
 
         return  map;
     }
+
+    @Override
+    public ApiResponse<Object> plotDataDeleted(String id) {
+
+        plotRepo.deleteByEmployeeId(id);
+
+        return new ApiResponse<>("SUCCESS","PLOT DATA DELETED", Collections.EMPTY_MAP);
+    }
 }

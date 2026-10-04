@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlotRepo extends JpaRepository<Plot, String> {
 
+    void deleteByEmployeeId(String id);
+
 
 
 

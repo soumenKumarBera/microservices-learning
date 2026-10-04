@@ -11,5 +11,7 @@ public interface AccountRepo extends JpaRepository<Account, String> {
 
     Optional<Account> findByAccNo(String accNo);
 
+    void deleteByEmployeeId(String id);
+
 
 }
