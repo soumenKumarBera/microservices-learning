@@ -108,10 +108,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
         //account-->call through Feign
+        accountClient.accountDataDeleted(id);
 
 
 
         //plot-->call through Feign
+        plotClient.plotDataDeleted(id);
 
          return new ApiResponse<>("SUCCESS","EMPLOYEE DATA DELETED", Collections.EMPTY_MAP);
     }

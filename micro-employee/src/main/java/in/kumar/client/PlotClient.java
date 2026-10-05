@@ -5,6 +5,8 @@ import in.kumar.external.PlotResponse;
 import in.kumar.payload.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,4 +17,7 @@ public interface PlotClient {
 
     @PostMapping("/api/plots")
     public ResponseEntity<ApiResponse<PlotResponse>> savePlot(@Valid @RequestBody PlotDto plotDto);
+
+    @DeleteMapping("/api/plots/{id}")
+    public ResponseEntity<ApiResponse<Object>> plotDataDeleted(@PathVariable String id);
 }
