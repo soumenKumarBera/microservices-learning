@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="micro-plot" />
         <module name="micro-account" />
+        <module name="micro-apiGetaway" />
         <module name="micro-employee" />
         <module name="micro-servicesRegister" />
       </profile>
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="micro-account" options="-parameters" />
+      <module name="micro-apiGetaway" options="-parameters" />
       <module name="micro-employee" options="-parameters" />
       <module name="micro-plot" options="-parameters" />
       <module name="micro-servicesRegister" options="-parameters" />
